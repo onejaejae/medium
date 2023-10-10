@@ -5,6 +5,24 @@ on:
     branches: [main]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['16.20.1']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: yarn install --prefer-offline --frozen-lockfile
+
+      - name: Build module
+        run: yarn build
+
+      - name: Run Test code
+        run: yarn test
+
   deploy:
     runs-on: ubuntu-latest
     steps:
